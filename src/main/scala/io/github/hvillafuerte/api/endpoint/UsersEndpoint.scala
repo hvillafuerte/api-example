@@ -31,12 +31,6 @@ trait UsersEndpoint {
     henry,pepe,laura,francisco,cristina,paula
   )
 
-  val getUsers: Route = endpoint.get
-    .in("users")
-    .out(stringBody)
-    .toRoute(_ => Future(Right("")))
-
-
 
 
   val getUserById = endpoint
@@ -50,9 +44,13 @@ trait UsersEndpoint {
     endpoint
       .get
       .in("users")
-      .in(query[Boolean]("single"))
+      .in(query[Option[Boolean]]("single"))
       .out(anyJsonBody[List[User]])
-      .toRoute ( single => Future(Right(users.filter(user => user.single == single))))
+      .toRoute { single => Future(Right(
+        single
+          .map(s => users.filter(user => user.single == s))
+          .getOrElse(users)
+      ))}
 
 
 
