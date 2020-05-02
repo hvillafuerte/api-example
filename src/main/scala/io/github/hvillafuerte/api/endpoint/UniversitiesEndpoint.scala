@@ -27,13 +27,13 @@ trait UniversitiesEndpoint {
     college1, college2,college3,college4,college5,college6
   )
 
-  val getCollegeById = endpoint
+  val getUniversityById = endpoint
     .get
     .in("universities" / path[Int]("id"))
     .out(anyJsonBody[University])
     .toRoute( id => Future(Right(universities.find(university => university.id == id ).head)))
 
-  val getCollegeByQuery = endpoint
+  val getUniversityByQuery = endpoint
     .get
     .in("universities")
     .in(query[Option[Boolean]]("online"))

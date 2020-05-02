@@ -12,3 +12,7 @@ libraryDependencies += "com.softwaremill.sttp.tapir" %% "tapir-openapi-circe-yam
 libraryDependencies += "com.softwaremill.sttp.tapir" %% "tapir-openapi-docs" % tapirVersion
 libraryDependencies += "com.softwaremill.sttp.tapir" %% "tapir-sttp-client" % tapirVersion
 libraryDependencies += "com.softwaremill.sttp.tapir" %% "tapir-swagger-ui-akka-http" % tapirVersion
+
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.1.1" % Test
+libraryDependencies += "com.typesafe.akka" %% "akka-http-testkit" % "10.1.11" % Test
+libraryDependencies += "com.typesafe.akka" %% "akka-stream-testkit" % "2.6.4" % Test

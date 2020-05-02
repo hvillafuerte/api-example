@@ -27,8 +27,8 @@ object AkkaHTTPServer extends App {
     UsersEndpoint.getUsersByQuery ~
     SubjectsEndpoint.getSubjectById ~
     SubjectsEndpoint.getSubjectsByQuery ~
-    UniversitiesEndpoint.getCollegeById ~
-    UniversitiesEndpoint.getCollegeByQuery
+    UniversitiesEndpoint.getUniversityById ~
+    UniversitiesEndpoint.getUniversityByQuery
 
   // R U N  A P P L I C A T I O N
   val serverBinding: Future[Http.ServerBinding] =
