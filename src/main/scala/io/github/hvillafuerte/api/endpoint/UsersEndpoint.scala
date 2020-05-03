@@ -28,7 +28,7 @@ import io.github.hvillafuerte.application.UsersBusinessLogic.User
       .in("users")
       .in(query[Option[Boolean]]("single"))
       .out(anyJsonBody[List[User]])
-      .toRoute () single => app.getUsersByQuery(single))
+      .toRoute ( single => app.getUsersByQuery(single))
 
 
 
