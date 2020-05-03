@@ -2,16 +2,20 @@ package io.github.hvillafuerte.api.endpoint
 
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.testkit.ScalatestRouteTest
+import io.github.hvillafuerte.application.UsersBusinessLogic
 import org.scalatest.flatspec.AnyFlatSpecLike
 
 
 class UsersEndpointSpec  extends AnyFlatSpecLike with ScalatestRouteTest{
 
+  val app = new UsersBusinessLogic()
+  val usersEndpoint = new UsersEndpoint(app)
+
   it should("get user by Id") in {
 
     val userId = 1
 
-    Get (s"/users/${userId}") ~> UsersEndpoint.getUserById ~> check {
+    Get (s"/users/${userId}") ~> usersEndpoint.getUserById ~> check {
 
       assert(status == StatusCodes.OK)
       assert(responseAs[String] == """{"userId":1,"name":"Henry","city":"Sevilla","age":18,"single":true}""")
