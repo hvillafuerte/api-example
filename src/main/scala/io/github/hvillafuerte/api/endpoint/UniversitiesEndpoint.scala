@@ -16,15 +16,15 @@ import io.circe.generic.auto._
 trait UniversitiesEndpoint {
 
   case class University(id: Int, name: String, city: String, year: Int, online: Boolean)
-  val college1 = University(1,"College1","Madrid",2019,true)
-  val college2 = University(2,"College2","Burgos",2018,false)
-  val college3 = University(3,"College3","Almeria",2020,true)
-  val college4 = University(4,"College4","Granada",2020,true)
-  val college5 = University(5,"College5","Salamanca",2019,false)
-  val college6 = University(6,"College6","Sevilla",2018,true)
+  val  UAM = University(1,"Universidad Autonoma de Madrid","Madrid",2019,true)
+  val  UB = University(2,"Universidad de Burgos","Burgos",2018,false)
+  val UAL = University(3,"Universidad de Almeria","Almeria",2020,true)
+  val UGR = University(4,"Universidad de Granada","Granada",2020,true)
+  val USAL = University(5,"Universidad de Salamanca","Salamanca",2019,false)
+  val US = University(6,"Universidad de Sevilla","Sevilla",2018,true)
 
   val universities = List[University](
-    college1, college2,college3,college4,college5,college6
+    UAM, UB,UAL,UGR,USAL,US
   )
 
   val getUniversityById = endpoint

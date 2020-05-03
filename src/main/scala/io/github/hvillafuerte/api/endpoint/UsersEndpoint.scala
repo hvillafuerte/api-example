@@ -36,8 +36,7 @@ trait UsersEndpoint {
     .toRoute( id => Future(Right(users.find(user => user.userId == id ).head)))
 
 
-  val getUsersByQuery =
-    endpoint
+  val getUsersByQuery = endpoint
       .get
       .in("users")
       .in(query[Option[Boolean]]("single"))
