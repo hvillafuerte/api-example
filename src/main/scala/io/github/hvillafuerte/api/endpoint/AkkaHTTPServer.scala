@@ -5,10 +5,9 @@ package io.github.hvillafuerte.api.endpoint
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
-
 import akka.http.scaladsl.server.RouteConcatenation._
 import akka.stream.ActorMaterializer
-
+import io.github.hvillafuerte.application.UsersBusinessLogic
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
@@ -23,8 +22,17 @@ object AkkaHTTPServer extends App {
   private implicit val actorSystem: ActorSystem = ActorSystem("products-service-application")
   private implicit val actorMaterializer: ActorMaterializer = ActorMaterializer()
 
-  val routes = UsersEndpoint.getUserById ~
-    UsersEndpoint.getUsersByQuery ~
+
+  //A  P  P  L  I  C  A  T  I  O  N
+
+  private val application = new UsersBusinessLogic()
+  private  val usersEndpoint = new UsersEndpoint(application)
+
+
+  // A  P  I
+
+  val routes = usersEndpoint.getUserById ~
+    usersEndpoint.getUsersByQuery ~
     SubjectsEndpoint.getSubjectById ~
     SubjectsEndpoint.getSubjectsByQuery ~
     UniversitiesEndpoint.getUniversityById ~
