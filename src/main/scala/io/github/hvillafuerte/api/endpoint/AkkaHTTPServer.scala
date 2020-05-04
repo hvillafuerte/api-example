@@ -7,7 +7,7 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.RouteConcatenation._
 import akka.stream.ActorMaterializer
-import io.github.hvillafuerte.application.{SubjectsBusinessLogic, UniversitiesBusinessLogic, UsersBusinessLogic}
+import io.github.hvillafuerte.application.{MarksBusinessLogic, SubjectsBusinessLogic, UniversitiesBusinessLogic, UsersBusinessLogic}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
@@ -31,6 +31,8 @@ object AkkaHTTPServer extends App {
   private val subjectsEndpoint = new SubjectsEndpoint(subjectsApplication)
   private val universitiesAplication = new UniversitiesBusinessLogic()
   private val universitiesEndpoint = new UniversitiesEndpoint (universitiesAplication)
+  private val marksAplication = new MarksBusinessLogic()
+  private val marksEndpoint = new MarksEndpoint(marksAplication)
 
 
 
@@ -41,7 +43,10 @@ object AkkaHTTPServer extends App {
     subjectsEndpoint.getSubjectById ~
     subjectsEndpoint.getSubjectsByQuery ~
     universitiesEndpoint.getUniversityById ~
-    universitiesEndpoint.getUniversityByQuery
+    universitiesEndpoint.getUniversityByQuery~
+    marksEndpoint.getMarkById~
+    marksEndpoint.getMarks
+
 
   // R U N  A P P L I C A T I O N
   val serverBinding: Future[Http.ServerBinding] =
