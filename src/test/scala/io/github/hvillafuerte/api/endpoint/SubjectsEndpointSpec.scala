@@ -18,7 +18,7 @@ class SubjectsEndpointSpec extends AnyFlatSpecLike with ScalatestRouteTest {
     Get(s"/subjects/${SubjectId}") ~> subjectsEndpoint.getSubjectById ~> check {
 
       assert(status == StatusCodes.OK)
-      assert(responseAs[String] == """{"id":1,"year":2020,"subject_name":"SubjectName1","approved_subject":true}""")
+      assert(responseAs[String] == """{"id":1,"year":2020,"subject_name":"SubjectName1","approvedSubject":true}""")
 
     }
 
@@ -28,27 +28,27 @@ class SubjectsEndpointSpec extends AnyFlatSpecLike with ScalatestRouteTest {
     Get(s"/subjects") ~> subjectsEndpoint.getSubjectsByQuery ~> check {
 
       assert(status == StatusCodes.OK)
-      assert(responseAs[String] == """[{"id":1,"year":2020,"subject_name":"SubjectName1","approved_subject":true},{"id":2,"year":2020,"subject_name":"SubjectName2","approved_subject":false},{"id":3,"year":2020,"subject_name":"SubjectName3","approved_subject":true},{"id":4,"year":2020,"subject_name":"SubjectName4","approved_subject":false},{"id":5,"year":2020,"subject_name":"SubjectName5","approved_subject":true},{"id":6,"year":2020,"subject_name":"SubjectName6","approved_subject":false}]""")
+      assert(responseAs[String] == """[{"id":1,"year":2020,"subject_name":"SubjectName1","approvedSubject":true},{"id":2,"year":2020,"subject_name":"SubjectName2","approvedSubject":false},{"id":3,"year":2020,"subject_name":"SubjectName3","approvedSubject":true},{"id":4,"year":2020,"subject_name":"SubjectName4","approvedSubject":false},{"id":5,"year":2020,"subject_name":"SubjectName5","approvedSubject":true},{"id":6,"year":2020,"subject_name":"SubjectName6","approvedSubject":false}]""")
 
     }
   }
 
-  it should ("get approved_subject = true") in {
+  it should ("get approvedSubject = true") in {
 
-    Get(s"/subjects?approved_subject=true") ~> subjectsEndpoint.getSubjectsByQuery ~> check {
+    Get(s"/subjects?approvedSubject=true") ~> subjectsEndpoint.getSubjectsByQuery ~> check {
 
       assert(status == StatusCodes.OK)
-      assert(responseAs[String] == """[{"id":1,"year":2020,"subject_name":"SubjectName1","approved_subject":true},{"id":3,"year":2020,"subject_name":"SubjectName3","approved_subject":true},{"id":5,"year":2020,"subject_name":"SubjectName5","approved_subject":true}]""")
+      assert(responseAs[String] == """[{"id":1,"year":2020,"subject_name":"SubjectName1","approvedSubject":true},{"id":3,"year":2020,"subject_name":"SubjectName3","approvedSubject":true},{"id":5,"year":2020,"subject_name":"SubjectName5","approvedSubject":true}]""")
 
     }
   }
 
-  it should ("get approved_subject = false") in {
+  it should ("get approvedSubject = false") in {
 
-    Get(s"/subjects?approved_subject=false") ~> subjectsEndpoint.getSubjectsByQuery ~> check {
+    Get(s"/subjects?approvedSubject=false") ~> subjectsEndpoint.getSubjectsByQuery ~> check {
 
       assert(status == StatusCodes.OK)
-      assert(responseAs[String] == """[{"id":2,"year":2020,"subject_name":"SubjectName2","approved_subject":false},{"id":4,"year":2020,"subject_name":"SubjectName4","approved_subject":false},{"id":6,"year":2020,"subject_name":"SubjectName6","approved_subject":false}]""")
+      assert(responseAs[String] == """[{"id":2,"year":2020,"subject_name":"SubjectName2","approvedSubject":false},{"id":4,"year":2020,"subject_name":"SubjectName4","approvedSubject":false},{"id":6,"year":2020,"subject_name":"SubjectName6","approvedSubject":false}]""")
 
     }
   }

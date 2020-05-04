@@ -20,7 +20,7 @@ class SubjectsEndpoint(app: SubjectsBusinessLogic) {
   val getSubjectsByQuery = endpoint
       .get
       .in("subjects")
-      .in(query[Option[Boolean]]("approved_subject"))
+      .in(query[Option[Boolean]]("approvedSubject"))
       .out(anyJsonBody[List[Subject]])
       .toRoute ( approved_subject => app.getSubjectsByQuery(approved_subject))
 
