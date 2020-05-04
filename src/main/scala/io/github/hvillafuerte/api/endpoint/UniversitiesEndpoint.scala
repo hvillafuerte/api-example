@@ -22,6 +22,6 @@ class UniversitiesEndpoint(app: UniversitiesBusinessLogic) {
     .in("universities")
     .in(query[Option[Boolean]]("online"))
     .out(anyJsonBody[List[University]])
-    .toRoute ( online => app.getUiversityByQuery(online))
+    .toRoute ( online => app.getUniversitiesByQuery(online))
 
 }
