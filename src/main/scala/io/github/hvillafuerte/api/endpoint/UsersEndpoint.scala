@@ -13,7 +13,7 @@ import io.circe.generic.auto._
 import io.github.hvillafuerte.application.UsersBusinessLogic.User
 
 
- class ¢UsersEndpoint(app: UsersBusinessLogic) {
+ class UsersEndpoint(app: UsersBusinessLogic) {
 
 
   val getUserById = endpoint
