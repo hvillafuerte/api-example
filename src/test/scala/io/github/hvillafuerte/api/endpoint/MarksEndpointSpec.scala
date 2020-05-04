@@ -18,4 +18,16 @@ class MarksEndpointSpec extends AnyFlatSpecLike with ScalatestRouteTest {
     }
 
   }
+
+  it should "get markById" in {
+
+    val markId = 1
+
+   Get(s"/marks/${markId}") ~> marksEndpoint.getMarkById ~> check {
+
+          assert(status == StatusCodes.OK)
+          assert(responseAs[String] == "" )
+   
+    }
+  }
 }
