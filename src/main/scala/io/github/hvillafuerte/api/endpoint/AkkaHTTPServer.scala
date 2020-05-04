@@ -7,7 +7,7 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.RouteConcatenation._
 import akka.stream.ActorMaterializer
-import io.github.hvillafuerte.application.UsersBusinessLogic
+import io.github.hvillafuerte.application.{SubjectsBusinessLogic, UniversitiesBusinessLogic, UsersBusinessLogic}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
@@ -25,18 +25,23 @@ object AkkaHTTPServer extends App {
 
   //A  P  P  L  I  C  A  T  I  O  N
 
-  private val application = new UsersBusinessLogic()
-  private  val usersEndpoint = new UsersEndpoint(application)
+  private val usersApplication = new UsersBusinessLogic()
+  private  val usersEndpoint = new UsersEndpoint(usersApplication)
+  private val subjectsApplication = new SubjectsBusinessLogic()
+  private val subjectsEndpoint = new SubjectsEndpoint(subjectsApplication)
+  private val universitiesAplication = new UniversitiesBusinessLogic()
+  private val universitiesEndpoint = new UniversitiesEndpoint (universitiesAplication)
+
 
 
   // A  P  I
 
   val routes = usersEndpoint.getUserById ~
     usersEndpoint.getUsersByQuery ~
-    SubjectsEndpoint.getSubjectById ~
-    SubjectsEndpoint.getSubjectsByQuery ~
-    UniversitiesEndpoint.getUniversityById ~
-    UniversitiesEndpoint.getUniversityByQuery
+    subjectsEndpoint.getSubjectById ~
+    subjectsEndpoint.getSubjectsByQuery ~
+    universitiesEndpoint.getUniversityById ~
+    universitiesEndpoint.getUniversityByQuery
 
   // R U N  A P P L I C A T I O N
   val serverBinding: Future[Http.ServerBinding] =

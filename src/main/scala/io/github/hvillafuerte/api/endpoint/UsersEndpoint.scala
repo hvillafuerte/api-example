@@ -35,10 +35,6 @@ import io.github.hvillafuerte.application.UsersBusinessLogic.User
 }
 
 
-object UsersEndpoint {
 
-  def apply(app: UsersBusinessLogic): UsersEndpoint = new UsersEndpoint(app)
-
-}
 
 
