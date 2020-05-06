@@ -14,11 +14,15 @@ class MarksEndpoint (app: MarksBusinessLogic) {
     .get
     .in("marks" /path[Int]("id"))
     .out(anyJsonBody[Mark])
+
+    val getMarkByIdApi = getMarkById
     .toRoute (id => app.getMarkById(id))
 
   val getMarks = endpoint
     .get
     .in("marks")
     .out(anyJsonBody[List[Mark]])
+
+    val getMarksApi = getMarks
     .toRoute(_ => app.getMarks)
 }

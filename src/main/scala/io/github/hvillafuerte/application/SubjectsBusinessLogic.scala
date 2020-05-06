@@ -34,6 +34,8 @@ class SubjectsBusinessLogic {
   def filterByApprovedSubject(approvedSubject: Boolean) =
     subjects.filter(subject => subject.approvedSubject == approvedSubject)
 
+  def addSubject(subject: Subject): Subject=
+    (subject :: subjects).map(_ => subject).head
 }
 
 object SubjectsBusinessLogic {

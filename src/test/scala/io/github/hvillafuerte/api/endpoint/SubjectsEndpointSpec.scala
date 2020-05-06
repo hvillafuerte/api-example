@@ -15,7 +15,7 @@ class SubjectsEndpointSpec extends AnyFlatSpecLike with ScalatestRouteTest {
 
     val SubjectId = 1
 
-    Get(s"/subjects/${SubjectId}") ~> subjectsEndpoint.getSubjectById ~> check {
+    Get(s"/subjects/${SubjectId}") ~> subjectsEndpoint.getSubjectByIdApi ~> check {
 
       assert(status == StatusCodes.OK)
       assert(responseAs[String] == """{"id":1,"year":2020,"subject_name":"SubjectName1","approvedSubject":true}""")
@@ -25,7 +25,7 @@ class SubjectsEndpointSpec extends AnyFlatSpecLike with ScalatestRouteTest {
   }
   it should ("get all subjects") in {
 
-    Get(s"/subjects") ~> subjectsEndpoint.getSubjectsByQuery ~> check {
+    Get(s"/subjects") ~> subjectsEndpoint.getSubjectsByQueryApi ~> check {
 
       assert(status == StatusCodes.OK)
       assert(responseAs[String] == """[{"id":1,"year":2020,"subject_name":"SubjectName1","approvedSubject":true},{"id":2,"year":2020,"subject_name":"SubjectName2","approvedSubject":false},{"id":3,"year":2020,"subject_name":"SubjectName3","approvedSubject":true},{"id":4,"year":2020,"subject_name":"SubjectName4","approvedSubject":false},{"id":5,"year":2020,"subject_name":"SubjectName5","approvedSubject":true},{"id":6,"year":2020,"subject_name":"SubjectName6","approvedSubject":false}]""")
@@ -35,7 +35,7 @@ class SubjectsEndpointSpec extends AnyFlatSpecLike with ScalatestRouteTest {
 
   it should ("get approvedSubject = true") in {
 
-    Get(s"/subjects?approvedSubject=true") ~> subjectsEndpoint.getSubjectsByQuery ~> check {
+    Get(s"/subjects?approvedSubject=true") ~> subjectsEndpoint.getSubjectsByQueryApi ~> check {
 
       assert(status == StatusCodes.OK)
       assert(responseAs[String] == """[{"id":1,"year":2020,"subject_name":"SubjectName1","approvedSubject":true},{"id":3,"year":2020,"subject_name":"SubjectName3","approvedSubject":true},{"id":5,"year":2020,"subject_name":"SubjectName5","approvedSubject":true}]""")
@@ -45,7 +45,7 @@ class SubjectsEndpointSpec extends AnyFlatSpecLike with ScalatestRouteTest {
 
   it should ("get approvedSubject = false") in {
 
-    Get(s"/subjects?approvedSubject=false") ~> subjectsEndpoint.getSubjectsByQuery ~> check {
+    Get(s"/subjects?approvedSubject=false") ~> subjectsEndpoint.getSubjectsByQueryApi ~> check {
 
       assert(status == StatusCodes.OK)
       assert(responseAs[String] == """[{"id":2,"year":2020,"subject_name":"SubjectName2","approvedSubject":false},{"id":4,"year":2020,"subject_name":"SubjectName4","approvedSubject":false},{"id":6,"year":2020,"subject_name":"SubjectName6","approvedSubject":false}]""")

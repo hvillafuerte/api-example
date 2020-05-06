@@ -2,12 +2,12 @@ package io.github.hvillafuerte.api.endpoint
 
 
 
-
+import io.github.hvillafuerte.api.endpoint.SwaggerEndpoint._
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.RouteConcatenation._
 import akka.stream.ActorMaterializer
-import io.github.hvillafuerte.application.{MarksBusinessLogic, SubjectsBusinessLogic, UniversitiesBusinessLogic, UsersBusinessLogic}
+import io.github.hvillafuerte.application._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
@@ -25,27 +25,20 @@ object AkkaHTTPServer extends App {
 
   //A  P  P  L  I  C  A  T  I  O  N
 
-  private val usersApplication = new UsersBusinessLogic()
-  private  val usersEndpoint = new UsersEndpoint(usersApplication)
-  private val subjectsApplication = new SubjectsBusinessLogic()
-  private val subjectsEndpoint = new SubjectsEndpoint(subjectsApplication)
-  private val universitiesAplication = new UniversitiesBusinessLogic()
-  private val universitiesEndpoint = new UniversitiesEndpoint (universitiesAplication)
-  private val marksAplication = new MarksBusinessLogic()
-  private val marksEndpoint = new MarksEndpoint(marksAplication)
-
-
 
   // A  P  I
 
-  val routes = usersEndpoint.getUserById ~
-    usersEndpoint.getUsersByQuery ~
-    subjectsEndpoint.getSubjectById ~
-    subjectsEndpoint.getSubjectsByQuery ~
-    universitiesEndpoint.getUniversityById ~
-    universitiesEndpoint.getUniversityByQuery~
-    marksEndpoint.getMarkById~
-    marksEndpoint.getMarks
+  val routes = usersEndpoint.getUserByIdApi ~
+    usersEndpoint.getUsersByQueryApi ~
+    subjectsEndpoint.getSubjectByIdApi ~
+    subjectsEndpoint.getSubjectsByQueryApi ~
+    universitiesEndpoint.getUniversityByIdApi ~
+    universitiesEndpoint.getUniversityByQueryApi ~
+    marksEndpoint.getMarkByIdApi ~
+    marksEndpoint.getMarksApi ~
+    booksEndpoint.getBookBySbnApi ~
+    booksEndpoint.getBooksApi ~
+    SwaggerEndpoint.route
 
 
   // R U N  A P P L I C A T I O N

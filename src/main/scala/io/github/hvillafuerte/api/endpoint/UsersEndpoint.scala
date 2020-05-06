@@ -20,6 +20,8 @@ import io.github.hvillafuerte.application.UsersBusinessLogic.User
     .get
     .in("users" / path[Int]("userId"))
     .out(anyJsonBody[User])
+
+    val getUserByIdApi = getUserById
     .toRoute( id => app.getUserById(id))
 
 
@@ -28,6 +30,9 @@ import io.github.hvillafuerte.application.UsersBusinessLogic.User
       .in("users")
       .in(query[Option[Boolean]]("single"))
       .out(anyJsonBody[List[User]])
+
+
+     val getUsersByQueryApi = getUsersByQuery
       .toRoute ( single => app.getUsersByQuery(single))
 
 

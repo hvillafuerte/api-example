@@ -14,6 +14,8 @@ class SubjectsEndpoint(app: SubjectsBusinessLogic) {
     .get
     .in("subjects" / path[Int]("id"))
     .out(anyJsonBody[Subject])
+
+    val getSubjectByIdApi = getSubjectById
     .toRoute( id => app.getSubjectById(id))
 
 
@@ -22,6 +24,8 @@ class SubjectsEndpoint(app: SubjectsBusinessLogic) {
       .in("subjects")
       .in(query[Option[Boolean]]("approvedSubject"))
       .out(anyJsonBody[List[Subject]])
+
+    val getSubjectsByQueryApi = getSubjectsByQuery
       .toRoute ( approved_subject => app.getSubjectsByQuery(approved_subject))
 
 }

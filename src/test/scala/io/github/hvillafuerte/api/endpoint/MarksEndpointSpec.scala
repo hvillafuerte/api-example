@@ -11,7 +11,7 @@ class MarksEndpointSpec extends AnyFlatSpecLike with ScalatestRouteTest {
   val marksEndpoint = new MarksEndpoint(app)
 
   it should "get all marks" in {
-    Get("/marks") ~> marksEndpoint.getMarks ~> check {
+    Get("/marks") ~> marksEndpoint.getMarksApi ~> check {
 
       assert(status == StatusCodes.OK)
       assert(responseAs[String] == """[{"id":1,"mark":8,"date":"1/5/2020"},{"id":2,"mark":7,"date":"30/4/2020"},{"id":3,"mark":5,"date":"25/4/2020"},{"id":4,"mark":8,"date":"2/5/2020"},{"id":5,"mark":7,"date":"26/4/2020"},{"id":6,"mark":5,"date":"25/4/2020"}]""")
@@ -23,10 +23,10 @@ class MarksEndpointSpec extends AnyFlatSpecLike with ScalatestRouteTest {
 
     val markId = 1
 
-   Get(s"/marks/${markId}") ~> marksEndpoint.getMarkById ~> check {
+   Get(s"/marks/${markId}") ~> marksEndpoint.getMarkByIdApi ~> check {
 
           assert(status == StatusCodes.OK)
-          assert(responseAs[String] == "" )
+          assert(responseAs[String] == """{"id":1,"mark":8,"date":"1/5/2020"}""" )
    
     }
   }

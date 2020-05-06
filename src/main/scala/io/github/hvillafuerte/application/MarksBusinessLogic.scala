@@ -22,6 +22,9 @@ class MarksBusinessLogic {
   def getMarks : Future[Right[Nothing,List[Mark]]] =
     Future(Right(marks))
 
+  def addMark(mark: Mark): Mark =
+    (mark :: marks).map(_ => mark).head
+
 }
 
 object MarksBusinessLogic {

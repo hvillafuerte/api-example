@@ -28,7 +28,8 @@ class UniversitiesBusinessLogic {
         .getOrElse(universities)
     ))
 
-
+  def addUniversity (university: University): University =
+    (university :: universities).map(_ => university).head
 
 }
 
