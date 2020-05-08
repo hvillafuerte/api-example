@@ -58,7 +58,7 @@ class UsersEndpointSpec  extends AnyFlatSpecLike with ScalatestRouteTest{
 
   }
 
-  it should ("post a user") in {
+  ignore should ("post a user") in {
     Post (s"/users") ~> usersEndpoint.getUsersByQueryApi ~> check {
 
       assert(status == StatusCodes.OK)
