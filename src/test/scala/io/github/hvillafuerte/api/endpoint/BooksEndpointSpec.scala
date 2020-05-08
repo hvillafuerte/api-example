@@ -16,7 +16,7 @@ class BooksEndpointSpec extends AnyFlatSpecLike with ScalatestRouteTest {
     Get("/books") ~> booksEndpoint.getBooksApi ~> check {
 
       assert(status == StatusCodes.OK)
-      assert(responseAs[String] == """[[{"sbn":1,"bookName":"History","date":"01/01/2020"},{"sbn":2,"bookName":"SpanishLanguage","date":"01/02/2020"},{"sbn":3,"bookName":"MySQL","date":"01/12/2019"}]]""")
+      assert(responseAs[String] == """[{"sbn":1,"bookName":"History","date":"01/01/2020"},{"sbn":2,"bookName":"SpanishLanguage","date":"01/02/2020"},{"sbn":3,"bookName":"MySQL","date":"01/12/2019"}]""")
     }
 
   }
@@ -28,7 +28,7 @@ class BooksEndpointSpec extends AnyFlatSpecLike with ScalatestRouteTest {
     Get(s"/marks/${sbn}") ~> booksEndpoint.getBookBySbnApi ~> check {
 
       assert(status == StatusCodes.OK)
-      assert(responseAs[String] == "" )
+      assert(responseAs[String] == """{"sbn":1,"bookName":"History","date":"01/01/2020"}""")
 
     }
   }

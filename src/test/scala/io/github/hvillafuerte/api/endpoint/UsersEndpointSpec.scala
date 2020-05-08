@@ -62,7 +62,7 @@ class UsersEndpointSpec  extends AnyFlatSpecLike with ScalatestRouteTest{
     Post (s"/users") ~> usersEndpoint.getUsersByQueryApi ~> check {
 
       assert(status == StatusCodes.OK)
-      assert(responseAs[String] == """""")
+      assert(responseAs[String] == """???""")
 
     }
 
