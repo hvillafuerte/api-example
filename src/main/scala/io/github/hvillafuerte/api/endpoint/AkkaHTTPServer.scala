@@ -38,7 +38,9 @@ object AkkaHTTPServer extends App {
     marksEndpoint.getMarksApi ~
     booksEndpoint.getBookBySbnApi ~
     booksEndpoint.getBooksApi ~
-    SwaggerEndpoint.route
+    teachersEndpoint.getTeacherByIdApi ~
+    SwaggerEndpoint.route ~
+
 
 
   // R U N  A P P L I C A T I O N

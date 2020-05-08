@@ -19,6 +19,8 @@ trait SwaggerEndpoint {
   val marksEndpoint = new MarksEndpoint(marksApplication)
   private val booksApplication = new BooksBusinessLogic()
    val booksEndpoint = new BooksEndpoint(booksApplication)
+  private val teachersApplication = new TeachersBusinessLogic()
+    val teachersEndpoint = new TeachersEndpoint(teachersApplication)
 
 
 
