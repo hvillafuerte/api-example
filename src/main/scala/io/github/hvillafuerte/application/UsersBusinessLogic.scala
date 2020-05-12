@@ -29,8 +29,7 @@ class UsersBusinessLogic {
         .getOrElse(users)
     ))
 
-  def addUser(user: User): User =
-    (user :: users).map(_ => user).head
+
 
 }
 
