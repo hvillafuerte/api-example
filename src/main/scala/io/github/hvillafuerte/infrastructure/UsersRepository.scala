@@ -2,11 +2,8 @@ package io.github.hvillafuerte.infrastructure
 
 
 import com.typesafe.config.{Config, ConfigFactory}
-import io.github.hvillafuerte.application.SubjectsBusinessLogic.Subject
-import io.github.hvillafuerte.application.UniversitiesBusinessLogic.University
 import io.github.hvillafuerte.application.UsersBusinessLogic.User
-import scalikejdbc.{AutoSession, ConnectionPool}
-import scalikejdbc._
+import scalikejdbc.{AutoSession, ConnectionPool, _}
 
 class UsersRepository {
 
@@ -21,33 +18,40 @@ class UsersRepository {
 
   implicit val session = AutoSession
 
-  def findById(id: Int):User =
+  def findById(id: Int): User =
+    sql"SELECT * FROM USERS WHERE ID = ${id};"
+      .map(mapToUser)
+      .list()
+      .apply()
+      .head
+
+  def findAllSingle(single: Boolean): List[User] =
+    sql"SELECT * FROM USERS WHERE SINGLE = ${single};"
+      .map(mapToUser)
+      .list()
+      .apply()
+
+  def createUser(user: User): Long =
     sql"""
-      |SELECT * FROM USERS WHERE ID = ${id};
-    """.stripMargin.map(rs => User(rs.int("ID"),
+         |INSERT INTO USERS(ID, NAME, CITY, AGE, SINGLE)
+         |VALUES (${user.userId}, ${user.name}, ${user.city}, ${user.age}, ${user.single})
+      """
+      .stripMargin
+      .map(mapToUser)
+      .updateAndReturnGeneratedKey()
+      .apply()
+
+  def findAll(): List[User] =
+    sql"SELECT * FROM USERS;"
+      .map(mapToUser)
+      .list()
+      .apply()
+
+  def mapToUser(rs: WrappedResultSet): User =
+    User(rs.int("ID"),
       rs.string("NAME"),
       rs.string("CITY"),
       rs.int("AGE"),
-      rs.boolean("SINGLE"))).list().apply().head
-
-  def findAllSingle(single: Boolean):List[User] =
-    sql"""
-      |SELECT * FROM USERS WHERE SINGLE = ${single};
-    """.stripMargin.map(rs => User(rs.int("ID"),
-      rs.string("NAME"),
-      rs.string("CITY"),
-      rs.int("AGE"),
-      rs.boolean("SINGLE"))).list().apply()
-
-  def createUser(user: User):User =(???)
-
-  def findAll():List[User] =
-    sql"""
-      |SELECT * FROM USERS;
-    """.stripMargin.map(rs => User(rs.int("ID"),
-      rs.string("NAME"),
-      rs.string("CITY"),
-      rs.int("AGE"),
-      rs.boolean("SINGLE"))).list().apply()
+      rs.boolean("SINGLE"))
 
 }

@@ -28,7 +28,8 @@ object AkkaHTTPServer extends App {
 
   // A  P  I
 
-  val routes = usersEndpoint.getUserByIdApi ~
+  val routes = usersEndpoint.createUserApi~
+    usersEndpoint.getUserByIdApi ~
     usersEndpoint.getUsersByQueryApi ~
     subjectsEndpoint.getSubjectByIdApi ~
     subjectsEndpoint.getSubjectsByQueryApi ~

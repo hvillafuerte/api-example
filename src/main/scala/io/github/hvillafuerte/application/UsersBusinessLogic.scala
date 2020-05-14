@@ -17,9 +17,8 @@ class UsersBusinessLogic (repository: UsersRepository) {
         .map(s => repository.findAllSingle(s))
         .getOrElse(repository.findAll())
     ))
-
-
-
+  def createUser(user: User): Future[Right[Nothing, Long]] =
+    Future(Right(repository.createUser(user)))
 }
 
 

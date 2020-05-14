@@ -35,6 +35,14 @@ import io.github.hvillafuerte.application.UsersBusinessLogic.User
      val getUsersByQueryApi = getUsersByQuery
       .toRoute ( single => app.getUsersByQuery(single))
 
+   val createUser = endpoint
+     .post
+     .in("users")
+     .in(anyJsonBody[User])
+     .out(anyJsonBody[Long])
+
+      val createUserApi = createUser
+        .toRoute ( user => app.createUser(user))
 
 
 }

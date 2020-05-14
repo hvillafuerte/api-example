@@ -28,6 +28,7 @@ trait SwaggerEndpoint {
 
 
   private lazy val openApi: String = Seq(
+    usersEndpoint.createUser,
     usersEndpoint.getUserById,
     usersEndpoint.getUsersByQuery,
     subjectsEndpoint.getSubjectById,
