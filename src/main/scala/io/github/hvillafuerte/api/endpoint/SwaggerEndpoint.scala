@@ -4,12 +4,15 @@ import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import io.github.hvillafuerte.application._
+import io.github.hvillafuerte.infrastructure.UsersRepository
 import sttp.tapir.docs.openapi._
 import sttp.tapir.openapi.circe.yaml._
 
 trait SwaggerEndpoint {
 
-  private val usersApplication = new UsersBusinessLogic()
+  val repository: UsersRepository = new UsersRepository()
+
+  private val usersApplication = new UsersBusinessLogic(repository)
     val usersEndpoint = new UsersEndpoint(usersApplication)
   private val subjectsApplication = new SubjectsBusinessLogic()
    val subjectsEndpoint = new SubjectsEndpoint(subjectsApplication)

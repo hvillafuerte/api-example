@@ -8,9 +8,10 @@ import io.github.hvillafuerte.application.UsersBusinessLogic.User
 import scalikejdbc.{AutoSession, ConnectionPool}
 import scalikejdbc._
 
-object UsersRepository extends App {
+class UsersRepository {
 
-  private val config: Config = ConfigFactory.load().getConfig("infraestructure.h2")
+
+  private val config: Config = ConfigFactory.load().getConfig("infrastructure.h2")
   Class.forName(config.getString("driver"))
   ConnectionPool.singleton(
     config.getString("url"),
@@ -20,13 +21,33 @@ object UsersRepository extends App {
 
   implicit val session = AutoSession
 
-  private val maps: List[Map[String, Any]]=
+  def findById(id: Int):User =
     sql"""
-         SELECT * FROM USERS WHERE ID = 1;
-       """.stripMargin.map(_.toMap()).list().apply()
+      |SELECT * FROM USERS WHERE ID = ${id};
+    """.stripMargin.map(rs => User(rs.int("ID"),
+      rs.string("NAME"),
+      rs.string("CITY"),
+      rs.int("AGE"),
+      rs.boolean("SINGLE"))).list().apply().head
 
-  println(maps)
+  def findAllSingle(single: Boolean):List[User] =
+    sql"""
+      |SELECT * FROM USERS WHERE SINGLE = ${single};
+    """.stripMargin.map(rs => User(rs.int("ID"),
+      rs.string("NAME"),
+      rs.string("CITY"),
+      rs.int("AGE"),
+      rs.boolean("SINGLE"))).list().apply()
 
-  Thread.sleep(Long.MaxValue)
+  def createUser(user: User):User =(???)
+
+  def findAll():List[User] =
+    sql"""
+      |SELECT * FROM USERS;
+    """.stripMargin.map(rs => User(rs.int("ID"),
+      rs.string("NAME"),
+      rs.string("CITY"),
+      rs.int("AGE"),
+      rs.boolean("SINGLE"))).list().apply()
 
 }

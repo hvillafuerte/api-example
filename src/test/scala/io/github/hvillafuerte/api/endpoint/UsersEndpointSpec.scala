@@ -3,12 +3,15 @@ package io.github.hvillafuerte.api.endpoint
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import io.github.hvillafuerte.application.UsersBusinessLogic
+import io.github.hvillafuerte.infrastructure.UsersRepository
 import org.scalatest.flatspec.AnyFlatSpecLike
 
 
 class UsersEndpointSpec  extends AnyFlatSpecLike with ScalatestRouteTest{
 
-  val app = new UsersBusinessLogic()
+  val repository: UsersRepository = new UsersRepository()
+
+  val app = new UsersBusinessLogic(repository)
   val usersEndpoint = new UsersEndpoint(app)
 
   it should("get user by Id") in {
