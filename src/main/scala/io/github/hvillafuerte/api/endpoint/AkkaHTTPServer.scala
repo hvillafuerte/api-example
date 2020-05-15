@@ -33,8 +33,10 @@ object AkkaHTTPServer extends App {
     usersEndpoint.getUsersByQueryApi ~
     subjectsEndpoint.getSubjectByIdApi ~
     subjectsEndpoint.getSubjectsByQueryApi ~
+    subjectsEndpoint.createSubjectApi~
     universitiesEndpoint.getUniversityByIdApi ~
     universitiesEndpoint.getUniversityByQueryApi ~
+    universitiesEndpoint.getUniversityByCityApi~
     marksEndpoint.getMarkByIdApi ~
     marksEndpoint.getMarksApi ~
     booksEndpoint.getBookBySbnApi ~

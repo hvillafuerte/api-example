@@ -28,6 +28,15 @@ class SubjectsEndpoint(app: SubjectsBusinessLogic) {
     val getSubjectsByQueryApi = getSubjectsByQuery
       .toRoute ( approved_subject => app.getSubjectsByQuery(approved_subject))
 
+
+  val createSubject = endpoint
+      .post
+      .in("subjects")
+      .in(anyJsonBody[Subject])
+      .out(anyJsonBody[Long])
+
+    val createSubjectApi = createSubject
+      .toRoute(subject => app.createSubject(subject))
 }
 
 

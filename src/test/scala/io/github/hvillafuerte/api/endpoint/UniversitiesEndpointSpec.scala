@@ -3,12 +3,16 @@ package io.github.hvillafuerte.api.endpoint
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import io.github.hvillafuerte.application.UniversitiesBusinessLogic
+import io.github.hvillafuerte.infrastructure.UniversitiesRepository
 import org.scalatest.flatspec.AnyFlatSpecLike
 
 class UniversitiesEndpointSpec extends AnyFlatSpecLike with ScalatestRouteTest{
 
-  private val app= new UniversitiesBusinessLogic()
+  private val app= new UniversitiesBusinessLogic(repository1)
   private val universitiesEndpoint = new UniversitiesEndpoint(app)
+
+  val repository1: UniversitiesRepository = new UniversitiesRepository()
+
 
   it should("get university by Id") in {
 

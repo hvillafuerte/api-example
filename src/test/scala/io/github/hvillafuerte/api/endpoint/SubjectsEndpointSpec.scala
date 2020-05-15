@@ -3,12 +3,14 @@ package io.github.hvillafuerte.api.endpoint
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import io.github.hvillafuerte.application.SubjectsBusinessLogic
+import io.github.hvillafuerte.infrastructure.SubjectsRepository
 import org.scalatest.flatspec.AnyFlatSpecLike
 
 class SubjectsEndpointSpec extends AnyFlatSpecLike with ScalatestRouteTest {
 
-  private val subjectsBusinessLogic = new SubjectsBusinessLogic()
-  private val subjectsEndpoint = new SubjectsEndpoint(subjectsBusinessLogic)
+  val repository: SubjectsRepository = new SubjectsRepository()
+  val app = new SubjectsBusinessLogic(repository)
+  val subjectsEndpoint = new SubjectsEndpoint(app)
 
 
   it should ("get subject by Id") in {

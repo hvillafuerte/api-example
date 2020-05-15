@@ -20,6 +20,14 @@ class UniversitiesEndpoint(app: UniversitiesBusinessLogic) {
     val getUniversityByIdApi: Route = getUniversityById
     .toRoute( id => app.getUniversityById(id))
 
+  val getUniversityByCity = endpoint
+    .get
+    .in("universities" / path[String]("city"))
+    .out(anyJsonBody[List[University]])
+
+    val getUniversityByCityApi: Route = getUniversityByCity
+      .toRoute( city => app.getUniversityByCity(city))
+
   val getUniversityByQuery = endpoint
     .get
     .in("universities")

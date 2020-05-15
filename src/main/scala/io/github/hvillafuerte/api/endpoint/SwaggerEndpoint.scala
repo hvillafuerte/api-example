@@ -4,19 +4,21 @@ import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import io.github.hvillafuerte.application._
-import io.github.hvillafuerte.infrastructure.UsersRepository
+import io.github.hvillafuerte.infrastructure.{SubjectsRepository, UniversitiesRepository, UsersRepository}
 import sttp.tapir.docs.openapi._
 import sttp.tapir.openapi.circe.yaml._
 
 trait SwaggerEndpoint {
 
   val repository: UsersRepository = new UsersRepository()
+  val repository1: UniversitiesRepository = new UniversitiesRepository()
+  val repository2: SubjectsRepository = new SubjectsRepository()
 
   private val usersApplication = new UsersBusinessLogic(repository)
     val usersEndpoint = new UsersEndpoint(usersApplication)
-  private val subjectsApplication = new SubjectsBusinessLogic()
+  private val subjectsApplication = new SubjectsBusinessLogic(repository2)
    val subjectsEndpoint = new SubjectsEndpoint(subjectsApplication)
-  private val universitiesApplication = new UniversitiesBusinessLogic()
+  private val universitiesApplication = new UniversitiesBusinessLogic(repository1)
    val universitiesEndpoint = new UniversitiesEndpoint (universitiesApplication)
   private val marksApplication = new MarksBusinessLogic()
   val marksEndpoint = new MarksEndpoint(marksApplication)
@@ -31,9 +33,11 @@ trait SwaggerEndpoint {
     usersEndpoint.createUser,
     usersEndpoint.getUserById,
     usersEndpoint.getUsersByQuery,
+    subjectsEndpoint.createSubject,
     subjectsEndpoint.getSubjectById,
     subjectsEndpoint.getSubjectsByQuery,
     universitiesEndpoint.getUniversityById,
+    universitiesEndpoint.getUniversityByCity,
     universitiesEndpoint.getUniversityByQuery,
     marksEndpoint.getMarkById,
     marksEndpoint.getMarks,
