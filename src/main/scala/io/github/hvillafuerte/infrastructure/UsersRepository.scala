@@ -19,7 +19,7 @@ class UsersRepository {
   implicit val session = AutoSession
 
   def findById(id: Int): User =
-    sql"SELECT * FROM USERS WHERE ID = ${id};"
+    sql"SELECT * FROM USERS WHERE ID = $id;"
       .stripMargin
       .map(mapToUser)
       .list()

@@ -8,10 +8,10 @@ import org.scalatest.flatspec.AnyFlatSpecLike
 
 class TeachersEndpointSpec extends AnyFlatSpecLike with ScalatestRouteTest{
 
+  val repository3: TeachersRepository = new TeachersRepository()
 
   val app = new TeachersBusinessLogic(repository3)
   val teachersEndpoint = new TeachersEndpoint(app)
-  val repository3: TeachersRepository = new TeachersRepository()
 
   it should "get teacher by idTeacher" in {
 
@@ -20,7 +20,7 @@ class TeachersEndpointSpec extends AnyFlatSpecLike with ScalatestRouteTest{
     Get (s"/teachers/$idTeacher") ~> teachersEndpoint.getTeacherByIdApi ~> check{
 
       assert(status == StatusCodes.OK)
-      assert(responseAs[String] == """{"idTeacher":1,"name":"Juan Jose Murillo","subject":"Java Programming", "city":"Madrid"}""")
+      assert(responseAs[String] == """{"idTeacher":1,"name":"Juan Jose Murillo","subject":"Java Programming","city":"Madrid"}""")
     }
   }
 

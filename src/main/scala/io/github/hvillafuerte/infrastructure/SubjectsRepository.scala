@@ -17,27 +17,30 @@ class SubjectsRepository {
   implicit val session = AutoSession
 
   def findById(id: Int): Subject =
-    sql"SELECT * FROM SUBJECTS WHERE ID = ${id};"
-    .map(mapToSubject)
-    .list()
-    .apply()
-    .head
+    sql"SELECT * FROM SUBJECTS WHERE ID = $id;"
+      .stripMargin
+      .map(mapToSubject)
+      .list()
+      .apply()
+      .head
 
   def findApprovedSubject(approved: Boolean): List[Subject] =
-    sql"SELECT * FROM SUBJECTS WHERE APPROVED_SUBJECT = ${approved};"
-    .map(mapToSubject)
-    .list()
-    .apply()
+    sql"SELECT * FROM SUBJECTS WHERE APPROVED_SUBJECT = $approved;"
+      .stripMargin
+      .map(mapToSubject)
+      .list()
+      .apply()
 
   def findAll(): List[Subject] =
     sql"SELECT * FROM SUBJECTS;"
-    .map(mapToSubject)
-    .list()
-    .apply()
+      .stripMargin
+      .map(mapToSubject)
+      .list()
+      .apply()
 
   def createSubject(subject: Subject): Long =
     sql"""
-      |INSERT INTO SUBJECTS(ID,YEAR,SUBJECT_NAME,APPROVED_SUBJECT)
+      |INSERT INTO SUBJECTS(ID, YEAR, SUBJECT_NAME, APPROVED_SUBJECT)
       |VALUES (${subject.id},${subject.year},${subject.subject_name},${subject.approvedSubject})
     """
       .stripMargin

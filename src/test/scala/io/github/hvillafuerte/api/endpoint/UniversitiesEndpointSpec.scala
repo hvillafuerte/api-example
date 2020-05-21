@@ -8,10 +8,11 @@ import org.scalatest.flatspec.AnyFlatSpecLike
 
 class UniversitiesEndpointSpec extends AnyFlatSpecLike with ScalatestRouteTest{
 
-  private val app= new UniversitiesBusinessLogic(repository1)
+  val repository1: UniversitiesRepository = new UniversitiesRepository()
+
+  private val app = new UniversitiesBusinessLogic(repository1)
   private val universitiesEndpoint = new UniversitiesEndpoint(app)
 
-  val repository1: UniversitiesRepository = new UniversitiesRepository()
 
 
   it should("get university by Id") in {
