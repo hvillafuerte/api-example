@@ -17,7 +17,7 @@ class TeachersRepository {
   implicit val session: AutoSession.type = AutoSession
 
   def findById(id: Int): Teacher=
-    sql"SELECT * FROM TEACHERS WHERE ID = ${"id"};"
+    sql"SELECT * FROM TEACHERS WHERE ID = ${id};"
       .map(mapToTeacher)
       .list()
       .apply()
