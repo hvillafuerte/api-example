@@ -15,24 +15,24 @@ class UniversitiesRepository {
     config.getString("pass")
   )
 
-  implicit val session = AutoSession
+  implicit val session: AutoSession.type = AutoSession
 
 
   def findById(id: Int): University =
-    sql"SELECT * FROM UNIVERSITIES WHERE ID = ${id};"
+    sql"SELECT * FROM UNIVERSITIES WHERE ID = $id;"
       .map(mapToUniversity)
       .list()
       .apply()
       .head
 
   def findByCity(city: String): List[University] =
-    sql"SELECT * FROM UNIVERSIIES WHERE CITY = ${city};"
+    sql"SELECT * FROM UNIVERSITIES WHERE CITY = $city;"
       .map(mapToUniversity)
       .list()
       .apply()
 
   def findAllOnline(online: Boolean): List[University] =
-    sql"SELECT * FROM UNIVERSITIES WHERE ONLINE = ${online};"
+    sql"SELECT * FROM UNIVERSITIES WHERE ONLINE = $online;"
       .map(mapToUniversity)
       .list()
       .apply()

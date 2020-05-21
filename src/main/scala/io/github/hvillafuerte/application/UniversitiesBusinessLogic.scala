@@ -5,20 +5,20 @@ import io.github.hvillafuerte.application.UniversitiesBusinessLogic.University
 import io.github.hvillafuerte.infrastructure.UniversitiesRepository
 import scala.concurrent.Future
 
-class UniversitiesBusinessLogic (repository: UniversitiesRepository){
+class UniversitiesBusinessLogic (repository1: UniversitiesRepository){
 
 
   def getUniversityById(id:Int): Future[Right[Nothing, University]] =
-    Future(Right(repository.findById(id)))
+    Future(Right(repository1.findById(id)))
 
   def getUniversityByCity(city:String): Future[Right[Nothing, List[University]]] =
-    Future(Right(repository.findByCity(city)))
+    Future(Right(repository1.findByCity(city)))
 
   def getUniversitiesByQuery(online: Option[Boolean]): Future[Right[Nothing, List[University]]] =
     Future(Right(
       online
-        .map(s => repository.findAllOnline(s))
-        .getOrElse(repository.findAll())
+        .map(s => repository1.findAllOnline(s))
+        .getOrElse(repository1.findAll())
     ))
 
 }

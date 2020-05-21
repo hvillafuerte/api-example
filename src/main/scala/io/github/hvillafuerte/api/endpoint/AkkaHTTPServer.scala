@@ -7,7 +7,6 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.RouteConcatenation._
 import akka.stream.ActorMaterializer
-import io.github.hvillafuerte.application._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
@@ -42,6 +41,7 @@ object AkkaHTTPServer extends App {
     booksEndpoint.getBookBySbnApi ~
     booksEndpoint.getBooksApi ~
     teachersEndpoint.getTeacherByIdApi ~
+    teachersEndpoint.createTeacherApi~
     SwaggerEndpoint.route
 
 

@@ -20,13 +20,15 @@ class UsersRepository {
 
   def findById(id: Int): User =
     sql"SELECT * FROM USERS WHERE ID = ${id};"
+      .stripMargin
       .map(mapToUser)
       .list()
       .apply()
       .head
 
   def findAllSingle(single: Boolean): List[User] =
-    sql"SELECT * FROM USERS WHERE SINGLE = ${single};"
+    sql"SELECT * FROM USERS WHERE SINGLE = $single;"
+      .stripMargin
       .map(mapToUser)
       .list()
       .apply()
@@ -43,6 +45,7 @@ class UsersRepository {
 
   def findAll(): List[User] =
     sql"SELECT * FROM USERS;"
+      .stripMargin
       .map(mapToUser)
       .list()
       .apply()

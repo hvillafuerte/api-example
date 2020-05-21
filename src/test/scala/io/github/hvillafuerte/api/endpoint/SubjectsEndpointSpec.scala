@@ -20,7 +20,7 @@ class SubjectsEndpointSpec extends AnyFlatSpecLike with ScalatestRouteTest {
     Get(s"/subjects/${SubjectId}") ~> subjectsEndpoint.getSubjectByIdApi ~> check {
 
       assert(status == StatusCodes.OK)
-      assert(responseAs[String] == """{"id":1,"year":2020,"subject_name":"SubjectName1","approvedSubject":true}""")
+      assert(responseAs[String] == """{"id":1,"year":2018,"subject_name":"Java Programming","approvedSubject":false}""")
 
     }
 
@@ -30,7 +30,7 @@ class SubjectsEndpointSpec extends AnyFlatSpecLike with ScalatestRouteTest {
     Get(s"/subjects") ~> subjectsEndpoint.getSubjectsByQueryApi ~> check {
 
       assert(status == StatusCodes.OK)
-      assert(responseAs[String] == """[{"id":1,"year":2020,"subject_name":"SubjectName1","approvedSubject":true},{"id":2,"year":2020,"subject_name":"SubjectName2","approvedSubject":false},{"id":3,"year":2020,"subject_name":"SubjectName3","approvedSubject":true},{"id":4,"year":2020,"subject_name":"SubjectName4","approvedSubject":false},{"id":5,"year":2020,"subject_name":"SubjectName5","approvedSubject":true},{"id":6,"year":2020,"subject_name":"SubjectName6","approvedSubject":false}]""")
+      assert(responseAs[String] == """[{"id":1,"year":2018,"subject_name":"Java Programming","approvedSubject":false},{"id":2,"year":2017,"subject_name":"All about sql","approvedSubject":true},{"id":3,"year":2020,"subject_name":"http Server","approvedSubject":false},{"id":4,"year":2020,"subject_name":"Scala for Beginners","approvedSubject":true},{"id":5,"year":2019,"subject_name":"IntelliJ Idea","approvedSubject":true},{"id":6,"year":2019,"subject_name":"bbdd","approvedSubject":true}]""")
 
     }
   }
@@ -40,7 +40,7 @@ class SubjectsEndpointSpec extends AnyFlatSpecLike with ScalatestRouteTest {
     Get(s"/subjects?approvedSubject=true") ~> subjectsEndpoint.getSubjectsByQueryApi ~> check {
 
       assert(status == StatusCodes.OK)
-      assert(responseAs[String] == """[{"id":1,"year":2020,"subject_name":"SubjectName1","approvedSubject":true},{"id":3,"year":2020,"subject_name":"SubjectName3","approvedSubject":true},{"id":5,"year":2020,"subject_name":"SubjectName5","approvedSubject":true}]""")
+      assert(responseAs[String] == """[{"id":2,"year":2017,"subject_name":"All about sql","approvedSubject":true},{"id":4,"year":2020,"subject_name":"Scala for Beginners","approvedSubject":true},{"id":5,"year":2019,"subject_name":"IntelliJ Idea","approvedSubject":true},{"id":6,"year":2019,"subject_name":"bbdd","approvedSubject":true}]""")
 
     }
   }
@@ -50,7 +50,7 @@ class SubjectsEndpointSpec extends AnyFlatSpecLike with ScalatestRouteTest {
     Get(s"/subjects?approvedSubject=false") ~> subjectsEndpoint.getSubjectsByQueryApi ~> check {
 
       assert(status == StatusCodes.OK)
-      assert(responseAs[String] == """[{"id":2,"year":2020,"subject_name":"SubjectName2","approvedSubject":false},{"id":4,"year":2020,"subject_name":"SubjectName4","approvedSubject":false},{"id":6,"year":2020,"subject_name":"SubjectName6","approvedSubject":false}]""")
+      assert(responseAs[String] == """[{"id":1,"year":2018,"subject_name":"Java Programming","approvedSubject":false},{"id":3,"year":2020,"subject_name":"http Server","approvedSubject":false}]""")
 
     }
   }

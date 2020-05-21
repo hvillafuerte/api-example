@@ -18,10 +18,10 @@ class UsersEndpointSpec  extends AnyFlatSpecLike with ScalatestRouteTest{
 
     val userId = 1
 
-    Get (s"/users/${userId}") ~> usersEndpoint.getUserByIdApi ~> check {
+    Get (s"/users/$userId") ~> usersEndpoint.getUserByIdApi ~> check {
 
       assert(status == StatusCodes.OK)
-      assert(responseAs[String] == """{"userId":1,"name":"Henry","city":"Sevilla","age":18,"single":true}""")
+      assert(responseAs[String] == """{"userId":1,"name":"Henry","city":"Madrid","age":30,"single":true}""")
 
     }
 
@@ -32,7 +32,7 @@ class UsersEndpointSpec  extends AnyFlatSpecLike with ScalatestRouteTest{
     Get (s"/users") ~> usersEndpoint.getUsersByQueryApi ~> check {
 
       assert(status == StatusCodes.OK)
-      assert(responseAs[String] == """[{"userId":1,"name":"Henry","city":"Sevilla","age":18,"single":true},{"userId":2,"name":"Pepe","city":"Valencia","age":23,"single":false},{"userId":3,"name":"Laura","city":"Salamanca","age":21,"single":false},{"userId":4,"name":"Francisco","city":"Santander","age":22,"single":true},{"userId":5,"name":"Cristina","city":"Barcelona","age":26,"single":false},{"userId":6,"name":"Paula","city":"Galicia","age":20,"single":false}]""")
+      assert(responseAs[String] == """[{"userId":1,"name":"Henry","city":"Madrid","age":30,"single":true},{"userId":2,"name":"Pepe","city":"Valencia","age":33,"single":true},{"userId":3,"name":"Maria","city":"Salamanca","age":23,"single":true},{"userId":4,"name":"Francisco","city":"Burgos","age":22,"single":true},{"userId":5,"name":"Laura","city":"Malaga","age":28,"single":false},{"userId":6,"name":"Luis","city":"Granada","age":31,"single":false}]""")
 
     }
 
@@ -44,7 +44,7 @@ class UsersEndpointSpec  extends AnyFlatSpecLike with ScalatestRouteTest{
     Get (s"/users?single=true") ~> usersEndpoint.getUsersByQueryApi ~> check {
 
       assert(status == StatusCodes.OK)
-      assert(responseAs[String] == """[{"userId":1,"name":"Henry","city":"Sevilla","age":18,"single":true},{"userId":4,"name":"Francisco","city":"Santander","age":22,"single":true}]""")
+      assert(responseAs[String] == """[{"userId":1,"name":"Henry","city":"Madrid","age":30,"single":true},{"userId":2,"name":"Pepe","city":"Valencia","age":33,"single":true},{"userId":3,"name":"Maria","city":"Salamanca","age":23,"single":true},{"userId":4,"name":"Francisco","city":"Burgos","age":22,"single":true}]""")
 
     }
 
@@ -55,7 +55,7 @@ class UsersEndpointSpec  extends AnyFlatSpecLike with ScalatestRouteTest{
     Get (s"/users?single=false") ~> usersEndpoint.getUsersByQueryApi ~> check {
 
       assert(status == StatusCodes.OK)
-      assert(responseAs[String] == """[{"userId":2,"name":"Pepe","city":"Valencia","age":23,"single":false},{"userId":3,"name":"Laura","city":"Salamanca","age":21,"single":false},{"userId":5,"name":"Cristina","city":"Barcelona","age":26,"single":false},{"userId":6,"name":"Paula","city":"Galicia","age":20,"single":false}]""")
+      assert(responseAs[String] == """[{"userId":5,"name":"Laura","city":"Malaga","age":28,"single":false},{"userId":6,"name":"Luis","city":"Granada","age":31,"single":false}]""")
 
     }
 

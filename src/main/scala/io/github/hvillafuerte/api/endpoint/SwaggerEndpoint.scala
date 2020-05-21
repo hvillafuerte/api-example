@@ -4,7 +4,7 @@ import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import io.github.hvillafuerte.application._
-import io.github.hvillafuerte.infrastructure.{SubjectsRepository, UniversitiesRepository, UsersRepository}
+import io.github.hvillafuerte.infrastructure.{SubjectsRepository, TeachersRepository, UniversitiesRepository, UsersRepository}
 import sttp.tapir.docs.openapi._
 import sttp.tapir.openapi.circe.yaml._
 
@@ -13,6 +13,7 @@ trait SwaggerEndpoint {
   val repository: UsersRepository = new UsersRepository()
   val repository1: UniversitiesRepository = new UniversitiesRepository()
   val repository2: SubjectsRepository = new SubjectsRepository()
+  val repository3: TeachersRepository = new TeachersRepository()
 
   private val usersApplication = new UsersBusinessLogic(repository)
     val usersEndpoint = new UsersEndpoint(usersApplication)
@@ -24,7 +25,7 @@ trait SwaggerEndpoint {
   val marksEndpoint = new MarksEndpoint(marksApplication)
   private val booksApplication = new BooksBusinessLogic()
    val booksEndpoint = new BooksEndpoint(booksApplication)
-  private val teachersApplication = new TeachersBusinessLogic()
+  private val teachersApplication = new TeachersBusinessLogic(repository3)
     val teachersEndpoint = new TeachersEndpoint(teachersApplication)
 
 
@@ -42,7 +43,9 @@ trait SwaggerEndpoint {
     marksEndpoint.getMarkById,
     marksEndpoint.getMarks,
     booksEndpoint.getBookBySbn,
-    booksEndpoint.getBooks
+    booksEndpoint.getBooks,
+    teachersEndpoint.getTeacherById,
+    teachersEndpoint.createTeacher
   ).toOpenAPI("api-example", "0.1.0").toYaml
 
   private lazy val contextPath = "docs"
